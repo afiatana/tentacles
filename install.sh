@@ -53,7 +53,7 @@ install_tentacles() {
     echo ""
     echo "[4/4] Launching Interactive Configuration Wizard..."
     if [ -f "cli/onboard.js" ]; then
-        node cli/onboard.js
+        node cli/onboard.js < /dev/tty
     else
         echo "❌ Error: cli/onboard.js not found in repository."
         exit 1
