@@ -1,0 +1,23 @@
+{
+  "name": "tentacles-backend",
+  "version": "1.0.0",
+  "description": "Head Orchestrator for Tentacles Architecture",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "dev": "nodemon src/index.ts"
+  },
+  "dependencies": {
+    "isomorphic-git": "^1.37.4",
+    "js-tiktoken": "^1.0.21",
+    "memfs": "^4.56.11",
+    "proper-lockfile": "^4.1.2",
+    "tiktoken": "^1.0.22"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/proper-lockfile": "^4.1.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.0"
+  }
+}

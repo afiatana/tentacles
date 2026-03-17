@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  tentacles_head:
+    image: node:20-alpine
+    working_dir: /workspace/backend
+    command: npm run start
+    # Sysbox parameter ensures the isolation containerization uses dedicated user-namespaces and hardware virtualization semantics
+    runtime: sysbox-runc 
+    volumes:
+      - ../:/workspace
+    environment:
+      # Ephemeral Token Injection: Secrets pulled from Vaults, lifetime limited to TTL of current Task/Cron execution
+      - TENTACLES_A2A_EPHEMERAL_TOKEN=${VAULT_INJECTED_SHORTLIVED_JWT:-"offline-dev-demo"}
+    networks:
+      tentacles_internal:
+        ipv4_address: 10.99.0.5
+
+  tentacles_arm_python:
+    image: python:3.11-slim
+    working_dir: /workspace/backend/workers
+    command: python python_worker.py
+    runtime: sysbox-runc
+    volumes:
+      - ../:/workspace
+    environment:
+      # Restricts agent payload manipulation length by utilizing an Ephemeral Identity Context string
+      - AGENTIC_EPHEMERAL_IDENTITY=${AGENT_OIDC_TOKEN:-"arm-offline-session-demo"}
+    networks:
+      tentacles_internal:
+        ipv4_address: 10.99.0.6
+
+networks:
+  tentacles_internal:
+    driver: bridge
+    # Hardens the default docker bridge to prevent IP forwarding to the host OS by default
+    internal: true 
+    ipam:
+      config:
+        - subnet: 10.99.0.0/16

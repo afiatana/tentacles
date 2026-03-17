@@ -1,0 +1,44 @@
+# Environment Variables / Secrets
+.env
+.env.*
+*.pem
+*.key
+*.cert
+secret.txt
+credentials.json
+
+# Node Modules & Dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build Outputs
+dist/
+build/
+.next/
+out/
+coverage/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS / Misc
+.DS_Store
+Thumbs.db
+*.log
+
+# Tentacles Specific - Agent Memory Logs
+# Prevent agent contextual memory or hallucinations from leaking
+memory.log
+memory/*.md
+!memory/.gitkeep
+logs/
+*.sqlite
+*.db
+workspace_state.json
