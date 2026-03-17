@@ -50,11 +50,11 @@ NODE_ENV=production
   fs.writeFileSync('.env', envData, { encoding: 'utf8' });
   console.log('✅ Configuration securely saved.\n');
 
-  console.log('🚀 Booting up Tentacles Container Sandbox (docker compose up -d)...');
+  console.log('🚀 Booting up Tentacles Container Sandbox (docker compose -f sysbox-docker-compose.yml up -d)...');
   console.log('   Please wait, this may take a minute...\n');
 
   // Trigger daemonized docker compose
-  const dockerProcess = exec('docker compose up -d');
+  const dockerProcess = exec('docker compose -f sysbox-docker-compose.yml up -d');
 
   dockerProcess.stdout.on('data', data => process.stdout.write(data));
   dockerProcess.stderr.on('data', data => process.stderr.write(data));
@@ -65,7 +65,7 @@ NODE_ENV=production
       console.log(' 🎉 TENTACLES IS LIVE & ORCHESTRATING 🎉');
       console.log('=============================================');
       console.log(' Dashboard: http://localhost:3000');
-      console.log(' To view raw logs, run: docker compose logs -f');
+      console.log(' To view raw logs, run: docker compose -f sysbox-docker-compose.yml logs -f');
       console.log('=============================================\n');
     } else {
       console.log('\n❌ Failed to build or start Docker containers. Exit code:', code);
